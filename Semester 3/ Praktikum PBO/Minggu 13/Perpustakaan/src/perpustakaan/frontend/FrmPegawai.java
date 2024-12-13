@@ -9,16 +9,17 @@ package perpustakaan.frontend;
  *
  * @author ASUS
  */
-import perpustakaan.backend.Anggota;
+import perpustakaan.backend.Pegawai;
 import perpustakaan.backend.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-public class FrmAnggota extends javax.swing.JFrame {
+public class FrmPegawai extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmKategori
      */
-    public FrmAnggota() {
+    public FrmPegawai() {
         initComponents();
         tampilData();
         kosongkanForm();
@@ -31,42 +32,50 @@ public class FrmAnggota extends javax.swing.JFrame {
      */
     
     public void kosongkanForm(){
-        txtIdAnggota.setText("0");
+        txtIdPegawai.setText("0");
         txtNama.setText("");
         txtAlamat.setText("");
         txtTelepon.setText("");
+        txtJabatan.setText("");
+        txtUsername.setText("");
+        txtPassword.setText("");
     }
     
     public void tampilData(){
-        String[] kolom = {"ID" , "Nama" , "Alamat" , "Telepon"};
-        ArrayList<Anggota> list = new Anggota().getAll();
-        Object rowData[] =new Object[4];
+        String[] kolom = {"ID" , "Nama" , "Alamat" , "Telepon", "Jabatan", "Username"};
+        ArrayList<Pegawai> list = new Pegawai().getAll();
+        Object rowData[] =new Object[6];
         
-        tblAnggota.setModel(new DefaultTableModel(new Object[][] {},kolom));
+        tblPegawai.setModel(new DefaultTableModel(new Object[][] {},kolom));
         
-        for(Anggota kat : list){
-            rowData[0] = kat.getIdanggota();
+        for(Pegawai kat : list){
+            rowData[0] = kat.getIdpegawai();
             rowData[1] = kat.getNama();
             rowData[2] = kat.getAlamat();
             rowData[3] = kat.getTelepon();
+            rowData[4] = kat.getJabatan();
+            rowData[5] = kat.getUsername();
             
-            ((DefaultTableModel)tblAnggota.getModel()).addRow(rowData);
+            ((DefaultTableModel)tblPegawai.getModel()).addRow(rowData);
         }
     }
     
     public void cari(String keyword){
-        String[] kolom = {"ID" , "Nama" , "Alamat" , "Telepon"};
-        ArrayList<Anggota> list = new Anggota().search(keyword);
-        Object rowData[] =new Object[4];
+        String[] kolom = {"ID" , "Nama" , "Alamat" , "Telepon", "Jabatan", "Username"};
+        ArrayList<Pegawai> list = new Pegawai().search(keyword);
+        Object rowData[] =new Object[6];
         
-        tblAnggota.setModel(new DefaultTableModel(new Object[][] {},kolom));
-        for(Anggota kat : list){
-            rowData[0] = kat.getIdanggota();
+        tblPegawai.setModel(new DefaultTableModel(new Object[][] {},kolom));
+        for(Pegawai kat : list){
+            rowData[0] = kat.getIdpegawai();
+            rowData[0] = kat.getIdpegawai();
             rowData[1] = kat.getNama();
             rowData[2] = kat.getAlamat();
             rowData[3] = kat.getTelepon();
+            rowData[4] = kat.getJabatan();
+            rowData[5] = kat.getUsername();
             
-            ((DefaultTableModel)tblAnggota.getModel()).addRow(rowData);
+            ((DefaultTableModel)tblPegawai.getModel()).addRow(rowData);
         }
     }
     @SuppressWarnings("unchecked")
@@ -78,18 +87,25 @@ public class FrmAnggota extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtIdAnggota = new javax.swing.JTextField();
+        txtIdPegawai = new javax.swing.JTextField();
         txtNama = new javax.swing.JTextField();
         txtAlamat = new javax.swing.JTextField();
         btnSimpan = new javax.swing.JButton();
         btnTambahBaru = new javax.swing.JButton();
         btnhapus = new javax.swing.JButton();
         txtCari = new javax.swing.JTextField();
-        btnCari = new javax.swing.JButton();
+        btnCek = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblAnggota = new javax.swing.JTable();
+        tblPegawai = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         txtTelepon = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        btnCari = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtJabatan = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,13 +122,13 @@ public class FrmAnggota extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("ID Anggota");
+        jLabel1.setText("ID Pegawai");
 
         jLabel2.setText("Nama ");
 
         jLabel3.setText("Alamat");
 
-        txtIdAnggota.setEnabled(false);
+        txtIdPegawai.setEnabled(false);
 
         txtNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,14 +163,14 @@ public class FrmAnggota extends javax.swing.JFrame {
             }
         });
 
-        btnCari.setText("Cari");
-        btnCari.addActionListener(new java.awt.event.ActionListener() {
+        btnCek.setText("Cari");
+        btnCek.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCariActionPerformed(evt);
+                btnCekActionPerformed(evt);
             }
         });
 
-        tblAnggota.setModel(new javax.swing.table.DefaultTableModel(
+        tblPegawai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -165,12 +181,12 @@ public class FrmAnggota extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblAnggota.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblPegawai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAnggotaMouseClicked(evt);
+                tblPegawaiMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblAnggota);
+        jScrollPane2.setViewportView(tblPegawai);
 
         jLabel4.setText("Telepon");
 
@@ -180,13 +196,64 @@ public class FrmAnggota extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Username");
+
+        jLabel6.setText("Password");
+
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Jabatan");
+
+        txtJabatan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtJabatanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIdPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNama)
+                            .addComponent(txtAlamat, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                            .addComponent(txtTelepon)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtJabatan))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCek))
                     .addComponent(btnSimpan)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnTambahBaru)
@@ -196,19 +263,7 @@ public class FrmAnggota extends javax.swing.JFrame {
                         .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCari))
-                    .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtIdAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNama)
-                            .addComponent(txtAlamat, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                            .addComponent(txtTelepon))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -217,7 +272,7 @@ public class FrmAnggota extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtIdAnggota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -230,7 +285,22 @@ public class FrmAnggota extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtTelepon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(btnCek))
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(btnSimpan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -251,21 +321,24 @@ public class FrmAnggota extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNamaActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        Anggota kat = new Anggota();
-        kat.setIdanggota(Integer.parseInt(txtIdAnggota.getText()));
+        Pegawai kat = new Pegawai();
+        kat.setIdpegawai(Integer.parseInt(txtIdPegawai.getText()));
         kat.setNama(txtNama.getText());
         kat.setAlamat(txtAlamat.getText());
         kat.setTelepon(txtTelepon.getText());
+        kat.setJabatan(txtJabatan.getText());
+        kat.setUsername(txtUsername.getText());
+        kat.setPassword(txtPassword.getText());
         kat.save();
-        txtIdAnggota.setText(Integer.toString(kat.getIdanggota()));
+        txtIdPegawai.setText(Integer.toString(kat.getIdpegawai()));
         tampilData();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
-        DefaultTableModel model = (DefaultTableModel)tblAnggota.getModel();
-        int row = tblAnggota.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel)tblPegawai.getModel();
+        int row = tblPegawai.getSelectedRow();
         
-        Anggota kat = new Anggota().getById(Integer.parseInt(model.getValueAt(row, 0).toString()));
+        Pegawai kat = new Pegawai().getById(Integer.parseInt(model.getValueAt(row, 0).toString()));
         
         kat.delete();
         kosongkanForm();
@@ -281,23 +354,51 @@ public class FrmAnggota extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCariActionPerformed
 
-    private void tblAnggotaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAnggotaMouseClicked
-        DefaultTableModel model = (DefaultTableModel)tblAnggota.getModel();
-        int row = tblAnggota.getSelectedRow();
+    private void tblPegawaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPegawaiMouseClicked
+        DefaultTableModel model = (DefaultTableModel)tblPegawai.getModel();
+        int row = tblPegawai.getSelectedRow();
         
-        txtIdAnggota.setText(model.getValueAt(row, 0).toString());
+        txtIdPegawai.setText(model.getValueAt(row, 0).toString());
         txtNama.setText(model.getValueAt(row, 1).toString());
         txtAlamat.setText(model.getValueAt(row, 2).toString());
         txtTelepon.setText(model.getValueAt(row, 3).toString());
-    }//GEN-LAST:event_tblAnggotaMouseClicked
+        txtJabatan.setText(model.getValueAt(row, 4).toString());
+        txtUsername.setText(model.getValueAt(row, 5).toString());
+    }//GEN-LAST:event_tblPegawaiMouseClicked
 
     private void txtTeleponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTeleponActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTeleponActionPerformed
 
+    private void btnCekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCekActionPerformed
+        String username = txtUsername.getText();
+        
+        Pegawai peg = new Pegawai();
+        boolean isAvailable = peg.cekUsername(username);
+        
+        if (isAvailable) {
+            JOptionPane.showMessageDialog(this, "Username belum digunakan", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Username tidak dapat dugunakan", "Warning", JOptionPane.WARNING_MESSAGE);
+            txtUsername.setText("");
+        }
+    }//GEN-LAST:event_btnCekActionPerformed
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         cari(txtCari.getText());
     }//GEN-LAST:event_btnCariActionPerformed
+
+    private void txtJabatanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJabatanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtJabatanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,27 +417,30 @@ public class FrmAnggota extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmAnggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmPegawai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmAnggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmPegawai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmAnggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmPegawai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmAnggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmPegawai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmAnggota().setVisible(true);
+                new FrmPegawai().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnCek;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnTambahBaru;
     private javax.swing.JButton btnhapus;
@@ -344,14 +448,20 @@ public class FrmAnggota extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable tblAnggota;
+    private javax.swing.JTable tblPegawai;
     private javax.swing.JTextField txtAlamat;
     private javax.swing.JTextField txtCari;
-    private javax.swing.JTextField txtIdAnggota;
+    private javax.swing.JTextField txtIdPegawai;
+    private javax.swing.JTextField txtJabatan;
     private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtTelepon;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

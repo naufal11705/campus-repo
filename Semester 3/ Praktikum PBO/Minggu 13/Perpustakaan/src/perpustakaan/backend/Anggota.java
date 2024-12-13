@@ -26,6 +26,11 @@ public class Anggota {
         this.alamat = alamat;
         this.telepon = telepon;
     }
+    
+    public String toString()
+    {
+        return nama;
+    }
 
     public int getIdanggota() {
         return idanggota;
@@ -105,6 +110,7 @@ public class Anggota {
         // Query untuk mencari data dalam tabel kategori
         String sql = "SELECT * FROM anggota WHERE " +
                      "nama LIKE '%" + keyword + "%' " +
+                     "OR alamat LIKE '%" + keyword + "%' " +
                      "OR telepon LIKE '%" + keyword + "%'";
 
         ResultSet rs = DBHelper.selectQuery(sql);
@@ -137,7 +143,7 @@ public class Anggota {
         } else {
             String SQL = "UPDATE anggota SET "
                     + "nama = '" + this.nama + "', "
-                    + "alamat = '" + this.alamat + "' "
+                    + "alamat = '" + this.alamat + "', "
                     + "telepon = '" + this.telepon + "' "
                     + "WHERE idanggota = '" + this.idanggota + "'";
             DBHelper.executeQuery(SQL);
@@ -147,6 +153,21 @@ public class Anggota {
     public void delete() {
         String SQL = "DELETE FROM anggota WHERE idanggota = '" + this.idanggota + "'";
         DBHelper.executeQuery(SQL);
-    }  
+    }
+    
+    public boolean cekIdAnggota(String id) {
+        boolean isAvailable = false;
+        ResultSet rs = DBHelper.selectQuery("SELECT * FROM anggota WHERE idanggota = '" + id + "'");
+        
+        try {
+            if (!rs.next()) {
+            isAvailable = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return isAvailable;
+    }
     
 }

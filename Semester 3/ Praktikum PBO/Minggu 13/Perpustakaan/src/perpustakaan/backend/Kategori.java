@@ -25,6 +25,11 @@ public class Kategori {
         this.keterangan = keterangan;
     }
 
+    public String toString()
+    {
+        return nama;
+    }
+    
     public int getIdkategori() {
         return idkategori;
     }
